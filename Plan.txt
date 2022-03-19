@@ -1,0 +1,11 @@
+﻿File to Plan what to do, instructions etc
+
+Main Window is self explanatory, this is where the user interacts with the software
+
+How its going to work:
+	-User can input a slot from which a 'time class' is created to make set times that things must happen e.g. School every weekday 8-3
+	==> These act as constraints to what the program can generate e.g if school is there it isnt a good time to revise (in school)
+
+	-User can then input what they want the program to add, giving any constraints e.g. 4 hrs of exercise a week, program decides when
+
+	After a suitable timetable is generated, the user can save, edit and print their timetable
