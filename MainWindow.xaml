@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TimetablerSoftware"
         mc:Ignorable="d"
-        Title="Timetable" Height="450" Width="800">
+        FontSize = "18" FontFamily = "Segoe UI"
+        Title = "Timetable"
+        Height = "450" Width = "800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "20" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "*" />
+            <ColumnDefinition Width = "20" />
+        </Grid.ColumnDefinitions>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height = "20" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "*" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "20" />
+        </Grid.RowDefinitions>
 
+        <TextBlock Grid.Column = "1" Grid.Row = "1" FontSize = "25"
+                   Text = "Your Timetable" Grid.ColumnSpan = "2"
+                   Margin = "0,0,0,10"/>
+
+        <TextBlock Grid.Column = "1" Grid.Row = "2"
+                   Text = "Timetable Name: " />
+
+        <TextBox  Grid.Column = "2" Grid.Row = "2"
+                  x:Name = "TimetableNameInput"
+                  Width = "150"
+                  Text = "Please type here..." FontStyle = "Italic"/>
+
+        <Button x:Name = "SaveButton" Grid.Column = "1" Grid.Row = "4"
+                Content = "Save" Click="SaveButton_Click"/>
+        
     </Grid>
 </Window>

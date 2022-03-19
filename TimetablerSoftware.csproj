@@ -6,4 +6,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Fonts\" />
+    <Folder Include="Images\" />
+  </ItemGroup>
+
 </Project>
