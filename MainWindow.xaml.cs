@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using MainCode;
+
 namespace TimetablerSoftware
 {
     /// <summary>
@@ -27,7 +29,12 @@ namespace TimetablerSoftware
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            string TimetableName = TimetableNameInput.Text;
+            string time1 = ActivityStartInput.Text;
+            string time2 = ActivityEndInput.Text;
+            string activity = ActivityNameInput.Text;
+            NewTimeSlot NewActivity = new MainCode.NewTimeSlot(time1, time2, activity);
+
+            MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
         }
     }
 }
