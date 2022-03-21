@@ -7,23 +7,25 @@
         mc:Ignorable="d"
         FontSize = "12" FontFamily = "Segoe UI"
         Title = "Timetable"
-        Height = "450" Width = "800"
+        Height = "540" Width = "960"
         >
+    
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "20" />
             <ColumnDefinition Width = "auto" />
             <ColumnDefinition Width = "auto" />
             
-            <ColumnDefinition Width = "auto" />
-            <ColumnDefinition Width = "auto" />
-            <ColumnDefinition Width = "auto" />
-            <ColumnDefinition Width = "auto" />
-            <ColumnDefinition Width = "auto" />
-            <ColumnDefinition Width = "auto" />
-            <ColumnDefinition Width = "auto" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
+            <ColumnDefinition Width = "1*" />
             
-            <ColumnDefinition Width = "*" />
             <ColumnDefinition Width = "20" />
         </Grid.ColumnDefinitions>
         
@@ -97,35 +99,35 @@
 
         <TextBlock Grid.Column="3" Grid.Row="1"
                    Text="Time"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
 
         <TextBlock Grid.Column="4" Grid.Row="1"
                    Text="Monday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
         <TextBlock Grid.Column="5" Grid.Row="1"
                    Text="Tuesday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
         <TextBlock Grid.Column="6" Grid.Row="1"
                    Text="Wednesday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
         <TextBlock Grid.Column="7" Grid.Row="1"
                    Text="Thursday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
         <TextBlock Grid.Column="8" Grid.Row="1"
                    Text="Friday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
         <TextBlock Grid.Column="9" Grid.Row="1"
                    Text="Saturday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
         <TextBlock Grid.Column="10" Grid.Row="1"
                    Text="Sunday"
-                   Margin="10"/>
+                   Margin="5,10,5,10"/>
         
 
         <Button x:Name = "SaveButton" Grid.Column = "1" Grid.Row = "7"
