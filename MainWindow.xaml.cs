@@ -32,7 +32,16 @@ namespace TimetablerSoftware
             string time1 = ActivityStartInput.Text;
             string time2 = ActivityEndInput.Text;
             string activity = ActivityNameInput.Text;
+
+            List<bool> Days = new List<bool> {
+                Mon.IsChecked.Value, Tue.IsChecked.Value, Wed.IsChecked.Value,
+                Thu.IsChecked.Value, Fri.IsChecked.Value, Sat.IsChecked.Value,
+                Sun.IsChecked.Value
+            }; //List of what days are selected
+
             NewTimeSlot NewActivity = new MainCode.NewTimeSlot(time1, time2, activity);
+
+            NewActivity.SetDays(Days);
 
             MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
         }
