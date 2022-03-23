@@ -36,6 +36,16 @@
             <RowDefinition Height = "auto" />
             <RowDefinition Height = "auto" />
             <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
+            <RowDefinition Height = "auto" />
             <RowDefinition Height = "*" />
             <RowDefinition Height = "auto" />
             <RowDefinition Height = "20" />
@@ -87,7 +97,7 @@
                    Margin = "0,0,0,10"
                    />
         
-        <StackPanel Grid.Column="2" Grid.Row="5">
+        <StackPanel Grid.Column="2" Grid.Row="5" Grid.RowSpan="7">
             <CheckBox x:Name="Mon" Content="Mon"/>
             <CheckBox x:Name="Tue" Content="Tue"/>
             <CheckBox x:Name="Wed" Content="Wed"/>
@@ -128,9 +138,43 @@
         <TextBlock Grid.Column="10" Grid.Row="1"
                    Text="Sunday"
                    Margin="5,10,5,10"/>
+
+        <TextBlock Grid.Column="3" Grid.Row="2"
+                   Text="0700" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="3"
+                   Text="0800" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="4"
+                   Text="0900" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="5"
+                   Text="1000" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="6"
+                   Text="1100" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="7"
+                   Text="1200" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="8"
+                   Text="1300" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="9"
+                   Text="1400" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="10"
+                   Text="1500" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="11"
+                   Text="1600" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="12"
+                   Text="1700" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="13"
+                   Text="1800" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="14"
+                   Text="1900" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="15"
+                   Text="2000" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="16"
+                   Text="2100" Margin = "0,0,0,10"/>
+        <TextBlock Grid.Column="3" Grid.Row="17"
+                   Text="2200" Margin = "0,0,0,10"/>
+        
         
 
-        <Button x:Name = "SaveButton" Grid.Column = "1" Grid.Row = "7"
+        <Button x:Name = "SaveButton" Grid.Column = "1" Grid.Row = "17"
                 Content = "Save" Click="SaveButton_Click"/>
         
     </Grid>
