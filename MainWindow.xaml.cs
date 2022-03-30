@@ -43,7 +43,38 @@ namespace TimetablerSoftware
 
             NewActivity.SetDays(Days);
 
+            AddActivity(NewActivity);
+
             MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
+        }
+
+        public void AddActivity(NewTimeSlot Activity)
+        {
+            (int Rowbegin, int rowbdecimal) = Activity.GetRowBegin();
+            (int Rowend, int rowedecimal) = Activity.GetRowEnd();
+
+            List<int> Columns = Activity.GetColumnBegin();
+
+            foreach (int ColumnNum in Columns)
+            {
+                TextBlock Temp = new TextBlock()
+                {
+                    Text = Activity.ActivityName
+                };
+
+                Border NewBorder = new Border()
+                {
+                    BorderThickness = new Thickness(1),
+                    BorderBrush = Brushes.Black,
+                    Child = Temp
+                };
+
+                Grid.SetColumn(NewBorder, ColumnNum);
+                Grid.SetRow(NewBorder, Rowbegin);
+                //Grid.SetRowSpan(NewBorder, Rowend - Rowbegin); //seems a little buggy right now
+
+                MainGrid.Children.Add(NewBorder);
+            }
         }
     }
 }
