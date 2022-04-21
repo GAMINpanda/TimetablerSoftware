@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
 
 //File with callable functions relating to the timetabling software
 
@@ -66,7 +68,7 @@ namespace MainCode
             int endingtime = Convert.ToInt32(EndingTime);
             int endingtimehr = Convert.ToInt32(endingtime / 100); //time is 0000 digits so divide by 100 and round for integer
             int endingtimemin = (endingtime - (endingtimehr * 100)) / 60; //finds difference as a fraction of an hour
-            int rowend = endingtime - 5;
+            int rowend = endingtimehr - 5;
             return (rowend, endingtimemin);
         }
 
@@ -74,5 +76,21 @@ namespace MainCode
         public string EndingTime { get; }
         public string ActivityName { get; }
         public List<bool> Days { get; set; }
+
+        public static void WriteToXmlFile<T>(string filePath, T objectToWrite, bool append = true) where T : new()
+        {
+            TextWriter writer = null;
+            try
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                writer = new StreamWriter(filePath, append);
+                serializer.Serialize(writer, objectToWrite);
+            }
+            finally
+            {
+                if (writer != null)
+                    writer.Close();
+            }
+        }
     }
 }

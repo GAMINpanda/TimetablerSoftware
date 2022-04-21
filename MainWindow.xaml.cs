@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 using MainCode;
 
@@ -53,6 +54,8 @@ namespace TimetablerSoftware
             (int Rowbegin, int rowbdecimal) = Activity.GetRowBegin();
             (int Rowend, int rowedecimal) = Activity.GetRowEnd();
 
+            int rowdif = Rowend - Rowbegin;
+
             List<int> Columns = Activity.GetColumnBegin();
 
             foreach (int ColumnNum in Columns)
@@ -71,10 +74,14 @@ namespace TimetablerSoftware
 
                 Grid.SetColumn(NewBorder, ColumnNum);
                 Grid.SetRow(NewBorder, Rowbegin);
-                //Grid.SetRowSpan(NewBorder, Rowend - Rowbegin); //seems a little buggy right now
+                Grid.SetRowSpan(NewBorder, rowdif);
 
                 MainGrid.Children.Add(NewBorder);
             }
+
+            NewTimeSlot.WriteToXmlFile<NewTimeSlot>("Save.xml", Activity);
         }
     }
+
+
 }
