@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
+using System.Diagnostics;
 
 //File with callable functions relating to the timetabling software
 
@@ -76,6 +77,10 @@ namespace MainCode
 
             string filename = "Save.csv";
             string FullPath = Path.GetFullPath(filename);
+
+            FullPath = FullPath.Replace(@"bin\Debug\netcoreapp3.1\", "");
+
+            Debug.Write(FullPath);
 
             StreamWriter file = new StreamWriter(FullPath, true);
             string[] ActivityLines = new string[10];
