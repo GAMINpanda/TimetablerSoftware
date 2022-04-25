@@ -32,7 +32,7 @@ namespace TimetablerSoftware
         {
             string time1 = ActivityStartInput.Text;
             string time2 = ActivityEndInput.Text;
-            string activity = ActivityNameInput.Text;
+            string activity = ActivityNameInput.Text; //needed to form activity
 
             List<bool> Days = new List<bool> {
                 Mon.IsChecked.Value, Tue.IsChecked.Value, Wed.IsChecked.Value,
@@ -40,11 +40,13 @@ namespace TimetablerSoftware
                 Sun.IsChecked.Value
             }; //List of what days are selected
 
-            NewTimeSlot NewActivity = new MainCode.NewTimeSlot(time1, time2, activity);
+            NewTimeSlot NewActivity = new MainCode.NewTimeSlot(time1, time2, activity); //uses NewTimeSlot to create NewActivity object
 
             NewActivity.SetDays(Days);
 
             AddActivity(NewActivity);
+
+            NewActivity.WriteToCsv(); //godisfing
 
             MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
         }
@@ -52,13 +54,13 @@ namespace TimetablerSoftware
         public void AddActivity(NewTimeSlot Activity)
         {
             (int Rowbegin, int rowbdecimal) = Activity.GetRowBegin();
-            (int Rowend, int rowedecimal) = Activity.GetRowEnd();
+            (int Rowend, int rowedecimal) = Activity.GetRowEnd(); //see MainCode.cs for function details
 
             int rowdif = Rowend - Rowbegin;
 
             List<int> Columns = Activity.GetColumnBegin();
 
-            foreach (int ColumnNum in Columns)
+            foreach (int ColumnNum in Columns) //Puts 'pen to paper' in a sense
             {
                 TextBlock Temp = new TextBlock()
                 {
@@ -78,8 +80,6 @@ namespace TimetablerSoftware
 
                 MainGrid.Children.Add(NewBorder);
             }
-
-            NewTimeSlot.WriteToXmlFile<NewTimeSlot>("Save.xml", Activity);
         }
     }
 

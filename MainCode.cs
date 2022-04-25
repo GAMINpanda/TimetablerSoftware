@@ -71,26 +71,43 @@ namespace MainCode
             int rowend = endingtimehr - 5;
             return (rowend, endingtimemin);
         }
+        public void WriteToCsv()//Not working rn
+        { //just stores each new timeslot on a new line (easy as that)
+
+            string filename = "Save.csv";
+            string FullPath = Path.GetFullPath(filename);
+
+            StreamWriter file = new StreamWriter(FullPath, true);
+            string[] ActivityLines = new string[10];
+            ActivityLines[0] = ActivityName + ',';
+            ActivityLines[1] = BeginningTime + ',';
+            ActivityLines[2] = EndingTime + ',';
+
+            int count = 3;
+            foreach (bool val in Days)
+            {
+                if (count == 9)
+                {
+                    ActivityLines[count] = Convert.ToString(val) + '\n';
+                }
+                else
+                {
+                    ActivityLines[count] = Convert.ToString(val) + ',';
+                }
+                count++;
+            }
+
+            foreach (string val in ActivityLines)
+            {
+                file.Write(val);
+            }
+            file.Close();
+        }
 
         public string BeginningTime { get; }
         public string EndingTime { get; }
         public string ActivityName { get; }
         public List<bool> Days { get; set; }
 
-        public static void WriteToXmlFile<T>(string filePath, T objectToWrite, bool append = true) where T : new()
-        {
-            TextWriter writer = null;
-            try
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                writer = new StreamWriter(filePath, append);
-                serializer.Serialize(writer, objectToWrite);
-            }
-            finally
-            {
-                if (writer != null)
-                    writer.Close();
-            }
-        }
     }
 }
