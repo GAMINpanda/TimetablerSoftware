@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
-
+using System.IO;
+using Path = System.IO.Path;
 using MainCode;
 
 namespace TimetablerSoftware
@@ -50,8 +51,44 @@ namespace TimetablerSoftware
 
             MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
         }
+        private void RemoveButton_Click(object sender, RoutedEventArgs e) //not working rn
+        {
+            string itemRemove = ActivityRemoveInput.Text;
+            string filename1 = "Save.csv";
+            string filename2 = "Save_Temp.csv";
+            string FullPath1 = Path.GetFullPath(filename1);
+            string FullPath2 = Path.GetFullPath(filename2);
 
-        public void AddActivity(NewTimeSlot Activity)
+            FullPath1 = FullPath1.Replace(@"bin\Debug\netcoreapp3.1\", "");
+            FullPath2 = FullPath2.Replace(@"bin\Debug\netcoreapp3.1\", "");
+
+            StreamReader file = new StreamReader(FullPath1, true);
+
+            using (StreamWriter filewrite = new StreamWriter(FullPath2))
+            {
+                for (string line; (line = file.ReadLine()) != null;)
+                {
+                    if (!line.Contains(itemRemove))
+                    {
+                        filewrite.WriteLine(line);
+                    }
+                }
+            }
+            //read line by line
+            file.Close();
+
+            using (StreamReader fileread = new StreamReader(FullPath2, true))
+            {
+                string NewText = fileread.ReadToEnd();
+
+                using (StreamWriter filewrite = new StreamWriter(FullPath1))
+                {
+                    filewrite.Write(NewText);
+                }
+            }
+        }
+
+            public void AddActivity(NewTimeSlot Activity)
         {
             (int Rowbegin, int rowbdecimal) = Activity.GetRowBegin();
             (int Rowend, int rowedecimal) = Activity.GetRowEnd(); //see MainCode.cs for function details
