@@ -68,7 +68,7 @@ namespace TimetablerSoftware
             {
                 for (string line; (line = file.ReadLine()) != null;)
                 {
-                    if (!line.Contains(itemRemove))
+                    if (!(line.Split(',')).Contains(itemRemove))
                     {
                         filewrite.WriteLine(line);
                     }
