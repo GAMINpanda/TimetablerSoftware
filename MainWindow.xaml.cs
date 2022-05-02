@@ -27,6 +27,64 @@ namespace TimetablerSoftware
         public MainWindow()
         {
             InitializeComponent();
+            List<NewTimeSlot> Activities = LoadFromCsv();
+            foreach (NewTimeSlot Activity in Activities)
+            {
+                AddActivity(Activity);
+            }
+        }
+
+        public List<NewTimeSlot> LoadFromCsv() //Method to get items to create an activity off the csv which can then be loaded
+        {
+            string filename1 = "Save.csv";
+            string FullPath1 = Path.GetFullPath(filename1);
+
+            string Name;
+            string time1;
+            string time2;
+            List<bool> Days;
+
+            string[] tempActivity;
+            NewTimeSlot ActivityTemp;
+
+            List<NewTimeSlot> Activities = new List<NewTimeSlot>() { };
+            FullPath1 = FullPath1.Replace(@"bin\Debug\netcoreapp3.1\", "");
+
+            StreamReader file = new StreamReader(FullPath1);
+
+            for (string line; (line = file.ReadLine()) != null;)
+            {
+                tempActivity = line.Split(',');
+
+                if (tempActivity.Length == 10)
+                {
+                    /*
+                    foreach(string var in tempActivity)
+                    {
+                        MessageBox.Show($"{var}");
+                    }
+                    */
+
+                    Name = tempActivity[0];
+                    time1 = tempActivity[1];
+                    time2 = tempActivity[2];
+
+                    ActivityTemp = new NewTimeSlot(time1, time2, Name);
+                    Days = new List<bool>() { };
+
+                    for (int i = 3; i < 10; i++)
+                    {
+                        Days.Add(Convert.ToBoolean(tempActivity[i]));
+                    }
+
+                    ActivityTemp.SetDays(Days);
+                    Activities.Add(ActivityTemp);
+                }
+            }
+
+            file.Close();
+
+            return Activities;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -49,7 +107,7 @@ namespace TimetablerSoftware
 
             NewActivity.WriteToCsv(); //godisfing
 
-            MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
+            //MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
         }
         private void RemoveButton_Click(object sender, RoutedEventArgs e) //not working rn
         {
