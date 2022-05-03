@@ -109,7 +109,7 @@
                   Text = "Please type here..." FontStyle = "Italic"
                   />
 
-        <StackPanel Grid.Column="2" Grid.Row="5" Grid.RowSpan="7">
+        <StackPanel Grid.Column="2" Grid.Row="5" Grid.RowSpan="8">
             <CheckBox x:Name="Mon" Content="Mon"/>
             <CheckBox x:Name="Tue" Content="Tue"/>
             <CheckBox x:Name="Wed" Content="Wed"/>
@@ -119,6 +119,16 @@
             <CheckBox x:Name="Sun" Content="Sun"/>
         </StackPanel>
 
+        <StackPanel Grid.Column="2" Grid.Row="10" Grid.RowSpan="8">
+            <CheckBox x:Name="MonR" Content="Mon"/>
+            <CheckBox x:Name="TueR" Content="Tue"/>
+            <CheckBox x:Name="WedR" Content="Wed"/>
+            <CheckBox x:Name="ThuR" Content="Thu"/>
+            <CheckBox x:Name="FriR" Content="Fri"/>
+            <CheckBox x:Name="SatR" Content="Sat"/>
+            <CheckBox x:Name="SunR" Content="Sun"/>
+        </StackPanel>
+        
         <TextBlock Grid.Column="3" Grid.Row="1"
                    Text="Time"
                    Margin="5,10,5,10"/>

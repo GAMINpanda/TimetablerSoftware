@@ -72,7 +72,7 @@ namespace MainCode
             int rowend = endingtimehr - 5;
             return (rowend, endingtimemin);
         }
-        public void WriteToCsv()//Not working rn
+        public void WriteToCsv()
         { //just stores each new timeslot on a new line (easy as that)
 
             string filename = "Save.csv";
@@ -84,7 +84,7 @@ namespace MainCode
 
             StreamWriter file = new StreamWriter(FullPath, true);
             string[] ActivityLines = new string[10];
-            ActivityLines[0] = ActivityName + ',';
+            ActivityLines[0] = ActivityName + ','; //adds object info to string[] starting with activity name
             ActivityLines[1] = BeginningTime + ',';
             ActivityLines[2] = EndingTime + ',';
 
@@ -102,7 +102,7 @@ namespace MainCode
                 count++;
             }
 
-            foreach (string val in ActivityLines)
+            foreach (string val in ActivityLines) //applies list in a way where it becomes a single line in the csv
             {
                 file.Write(val);
             }

@@ -56,7 +56,7 @@ namespace TimetablerSoftware
             {
                 tempActivity = line.Split(',');
 
-                if (tempActivity.Length == 10)
+                if (tempActivity.Length == 10) //might be an empty newline
                 {
                     /*
                     foreach(string var in tempActivity)
@@ -69,7 +69,7 @@ namespace TimetablerSoftware
                     time1 = tempActivity[1];
                     time2 = tempActivity[2];
 
-                    ActivityTemp = new NewTimeSlot(time1, time2, Name);
+                    ActivityTemp = new NewTimeSlot(time1, time2, Name); //creates new object and assigns accordingly
                     Days = new List<bool>() { };
 
                     for (int i = 3; i < 10; i++)
@@ -109,10 +109,19 @@ namespace TimetablerSoftware
 
             //MessageBox.Show($"{NewActivity.ActivityName}: {NewActivity.BeginningTime} - {NewActivity.EndingTime}");
         }
-        private void RemoveButton_Click(object sender, RoutedEventArgs e) //not working rn
+        private void RemoveButton_Click(object sender, RoutedEventArgs e) //When remove button clicked
         {
             string itemRemove = ActivityRemoveInput.Text;
-            string filename1 = "Save.csv";
+            List<bool> DaysRemove = new List<bool>(){ MonR.IsChecked.Value, TueR.IsChecked.Value, WedR.IsChecked.Value,
+                ThuR.IsChecked.Value, FriR.IsChecked.Value, SatR.IsChecked.Value,
+                SunR.IsChecked.Value
+            };//List of the days to be removed named itemRemove
+
+            string[] temp;
+            string tempToWrite;
+            bool tempcheck = false;
+
+            string filename1 = "Save.csv"; //uses a temp file to temporarily store the objects
             string filename2 = "Save_Temp.csv";
             string FullPath1 = Path.GetFullPath(filename1);
             string FullPath2 = Path.GetFullPath(filename2);
@@ -124,18 +133,64 @@ namespace TimetablerSoftware
 
             using (StreamWriter filewrite = new StreamWriter(FullPath2))
             {
-                for (string line; (line = file.ReadLine()) != null;)
+                for (string line; (line = file.ReadLine()) != null;) //checks until the end of the file
                 {
-                    if (!(line.Split(',')).Contains(itemRemove))
+                    temp = line.Split(',');
+
+                    if (!temp.Contains(itemRemove))
                     {
                         filewrite.WriteLine(line);
+                    }
+
+                    else
+                    {
+                        tempcheck = false;
+
+                        for (int i = 3; i < 10; i++)
+                        {
+                            //MessageBox.Show($"temp[{i}]: {temp[i]}");
+                            //MessageBox.Show($"DaysRemove[{i - 3}]: {DaysRemove[i - 3]}");
+
+                            if (Convert.ToBoolean(temp[i]) == DaysRemove[i - 3]) //if the day wants to be removed and the day exists, then it is turned false - removed
+                            {
+                                DaysRemove[i - 3] = false;
+                            }
+                            if (Convert.ToBoolean(temp[i]) == true && DaysRemove[i - 3] == false)
+                            {
+                                DaysRemove[i - 3] = true;
+                            }
+                        }
+
+                        foreach(bool var in DaysRemove) //so object isn't removed as long as one day still exists
+                        {
+                            if (var)
+                            {
+                                tempcheck = true;
+                            }
+                        }
+
+                        //MessageBox.Show($"{tempcheck}");
+
+                        if (tempcheck) //constructs new line to add with changes
+                        {
+                            tempToWrite = itemRemove + ',' + temp[1] + ',' + temp[2];
+
+                            foreach(bool var in DaysRemove)
+                            {
+                                tempToWrite = tempToWrite + ',' + Convert.ToString(var);
+                            }
+
+                            tempToWrite = tempToWrite + '\n';
+
+                            filewrite.WriteLine(tempToWrite); //some error about inconsistent line endings, will sort out later
+                        }
                     }
                 }
             }
             //read line by line
             file.Close();
 
-            using (StreamReader fileread = new StreamReader(FullPath2, true))
+            using (StreamReader fileread = new StreamReader(FullPath2, true)) //just transfers the temp data to Save.csv
             {
                 string NewText = fileread.ReadToEnd();
 
@@ -146,7 +201,7 @@ namespace TimetablerSoftware
             }
         }
 
-            public void AddActivity(NewTimeSlot Activity)
+            public void AddActivity(NewTimeSlot Activity) //Adds an activity to MainWindow.xaml
         {
             (int Rowbegin, int rowbdecimal) = Activity.GetRowBegin();
             (int Rowend, int rowedecimal) = Activity.GetRowEnd(); //see MainCode.cs for function details
@@ -155,7 +210,7 @@ namespace TimetablerSoftware
 
             List<int> Columns = Activity.GetColumnBegin();
 
-            foreach (int ColumnNum in Columns) //Puts 'pen to paper' in a sense
+            foreach (int ColumnNum in Columns) //Adds activities to canvas
             {
                 TextBlock Temp = new TextBlock()
                 {
