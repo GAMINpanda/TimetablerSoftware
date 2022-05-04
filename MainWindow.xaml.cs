@@ -121,6 +121,8 @@ namespace TimetablerSoftware
             string tempToWrite;
             bool tempcheck = false;
 
+            List<bool> NewDays = new List<bool>() { false, false, false, false, false, false, false};
+
             string filename1 = "Save.csv"; //uses a temp file to temporarily store the objects
             string filename2 = "Save_Temp.csv";
             string FullPath1 = Path.GetFullPath(filename1);
@@ -135,54 +137,59 @@ namespace TimetablerSoftware
             {
                 for (string line; (line = file.ReadLine()) != null;) //checks until the end of the file
                 {
-                    temp = line.Split(',');
+                    string line1 = line.Replace("\n", string.Empty); //removes \n for later
+                    temp = line1.Split(',');
 
-                    if (!temp.Contains(itemRemove))
+                    if (temp.Length == 10) //eliminate whitespace
                     {
-                        filewrite.WriteLine(line);
-                    }
-
-                    else
-                    {
-                        tempcheck = false;
-
-                        for (int i = 3; i < 10; i++)
+                        if (!temp.Contains(itemRemove))
                         {
-                            //MessageBox.Show($"temp[{i}]: {temp[i]}");
-                            //MessageBox.Show($"DaysRemove[{i - 3}]: {DaysRemove[i - 3]}");
-
-                            if (Convert.ToBoolean(temp[i]) == DaysRemove[i - 3]) //if the day wants to be removed and the day exists, then it is turned false - removed
-                            {
-                                DaysRemove[i - 3] = false;
-                            }
-                            if (Convert.ToBoolean(temp[i]) == true && DaysRemove[i - 3] == false)
-                            {
-                                DaysRemove[i - 3] = true;
-                            }
+                            filewrite.WriteLine(line); //just write original line
                         }
 
-                        foreach(bool var in DaysRemove) //so object isn't removed as long as one day still exists
+                        else
                         {
-                            if (var)
+                            tempcheck = false;
+
+                            for (int i = 3; i < 10; i++)
                             {
-                                tempcheck = true;
+                                //MessageBox.Show($"temp[{i}]: {temp[i]}");
+                                //MessageBox.Show($"DaysRemove[{i - 3}]: {DaysRemove[i - 3]}");
+
+                                if (Convert.ToBoolean(temp[i]) == DaysRemove[i - 3] || !Convert.ToBoolean(temp[i])) //if days needs removing and day exists or
+                                                                                                                    //day doesn't exist
+                                {
+                                    NewDays[i - 3] = false;
+                                }
+                                else
+                                {
+                                    NewDays[i - 3] = true;
+                                }
                             }
-                        }
 
-                        //MessageBox.Show($"{tempcheck}");
-
-                        if (tempcheck) //constructs new line to add with changes
-                        {
-                            tempToWrite = itemRemove + ',' + temp[1] + ',' + temp[2];
-
-                            foreach(bool var in DaysRemove)
+                            foreach (bool var in NewDays) //so object isn't removed as long as one day still exists
                             {
-                                tempToWrite = tempToWrite + ',' + Convert.ToString(var);
+                                if (var)
+                                {
+                                    tempcheck = true;
+                                }
                             }
 
-                            tempToWrite = tempToWrite + '\n';
+                            //MessageBox.Show($"{tempcheck}");
 
-                            filewrite.WriteLine(tempToWrite); //some error about inconsistent line endings, will sort out later
+                            if (tempcheck) //constructs new line to add with changes
+                            {
+                                tempToWrite = itemRemove + ',' + temp[1] + ',' + temp[2];
+
+                                foreach (bool var in NewDays)
+                                {
+                                    tempToWrite = tempToWrite + ',' + Convert.ToString(var);
+                                }
+
+                                tempToWrite = tempToWrite + '\n';
+
+                                filewrite.WriteLine(tempToWrite); //some error about inconsistent line endings, will sort out later
+                            }
                         }
                     }
                 }
