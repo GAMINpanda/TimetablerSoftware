@@ -1,2 +1,4 @@
 Example1,0700,1000,True,False,False,True,False,False,True
-Example2,2000,2100,True,False,True,True,False,False,True
+Example2,2000,2100,True,False,False,False,False,False,True
+Example3,1100,1550,True,True,True,True,True,True,True
+Example2,1900,2000,False,True,False,False,False,True,False

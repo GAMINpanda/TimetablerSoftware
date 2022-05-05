@@ -186,9 +186,7 @@ namespace TimetablerSoftware
                                     tempToWrite = tempToWrite + ',' + Convert.ToString(var);
                                 }
 
-                                tempToWrite = tempToWrite + '\n';
-
-                                filewrite.WriteLine(tempToWrite); //some error about inconsistent line endings, will sort out later
+                                filewrite.WriteLine(tempToWrite);
                             }
                         }
                     }
