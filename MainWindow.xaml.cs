@@ -206,7 +206,7 @@ namespace TimetablerSoftware
             }
         }
 
-            public void AddActivity(NewTimeSlot Activity) //Adds an activity to MainWindow.xaml
+        public void AddActivity(NewTimeSlot Activity) //Adds an activity to MainWindow.xaml
         {
             (int Rowbegin, int rowbdecimal) = Activity.GetRowBegin();
             (int Rowend, int rowedecimal) = Activity.GetRowEnd(); //see MainCode.cs for function details

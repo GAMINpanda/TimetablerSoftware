@@ -9,3 +9,13 @@ How its going to work:
 	-User can then input what they want the program to add, giving any constraints e.g. 4 hrs of exercise a week, program decides when
 
 	After a suitable timetable is generated, the user can save, edit and print their timetable
+
+
+
+	How generation will function:
+
+	Start with exercise since it's important
+
+	Makes sure user has put in all the constraints e.g. work, eating
+
+	Algorithm finds non overlapping times that are close to 
