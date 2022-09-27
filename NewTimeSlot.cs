@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.IO;
 using System.Diagnostics;
+using GenSlots;
 
 //File with callable functions relating to the timetabling software
 
@@ -107,6 +108,8 @@ namespace MainCode
                 file.Write(val);
             }
             file.Close();
+
+            NewTimeGen.FreeTime(); //Writing free slots to file
         }
 
         public string BeginningTime { get; }
