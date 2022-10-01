@@ -29,7 +29,12 @@ namespace GenSlots
 
         static void GetActvitiesToGenerate()
         {
+            //Activities and number of hours a week, with any time constraints, stored in a file for now.
+            //Activities will also have a type - eating, exercise, hobby or job (or none at all) -- helps decide on distribution
 
+            List<List<string>> temp = freetimevals;
+
+            List<string> Activities = GetCSVData("ActivitiesDistribute.csv");
         }
 
         public static void FreeTime() //Reads save file to decide what times are free in the week - Creates new file with details (call once on save)
@@ -140,7 +145,7 @@ namespace GenSlots
 
         }
 
-        private List<List<string>> freetimevals = NewTimeGen.ExtractFromSaveBoundaries();
+        private static List<List<string>> freetimevals = NewTimeGen.ExtractFromSaveBoundaries();
     }
 
 }
