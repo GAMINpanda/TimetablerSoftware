@@ -3,3 +3,6 @@ Example2,2000,2100,True,False,False,False,False,False,True
 Example3,1100,1550,True,True,True,True,True,True,True
 Example2,1900,2000,False,True,False,False,False,True,False
 KaiIsSpecial,0800,1000,True,True,False,True,False,False,True
+Chicken,1600,1700,True,False,False,False,False,False,False
+e,1600,1700,True,False,False,False,False,False,False
+e,1700,1800,True,False,False,False,False,False,False

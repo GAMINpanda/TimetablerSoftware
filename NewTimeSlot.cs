@@ -30,6 +30,15 @@ namespace MainCode
             Days = new List<bool> { false, false, false, false, false, false, false };
         }
 
+        public NewTimeSlot(string time1, string time2, string activity, List<bool> Daysinp)
+        {
+            BeginningTime = time1;
+            EndingTime = time2;
+            ActivityName = activity;
+
+            Days = Daysinp;
+        }
+
         public void SetDays(List<bool> InputDays)
         {
             Days = InputDays;
@@ -96,7 +105,7 @@ namespace MainCode
 
             FullPath = FullPath.Replace(@"bin\Debug\netcoreapp3.1\", "");
 
-            Debug.Write(FullPath);
+            //Debug.Write(FullPath);
 
             StreamWriter file = new StreamWriter(FullPath, true);
             string[] ActivityLines = new string[10];

@@ -29,14 +29,7 @@ namespace TimetablerSoftware
         {
             InitializeComponent();
 
-            NewTimeGen Generator = new NewTimeGen();
-
-            Generator.FreeTime();
-            List<NewTimeSlot> RandomActivities = Generator.ActvitiesToGenerate();
-
             List<NewTimeSlot> Activities = LoadFromCsv();
-
-            Activities.AddRange(RandomActivities);
 
             foreach (NewTimeSlot Activity in Activities)
             {
@@ -213,6 +206,18 @@ namespace TimetablerSoftware
                 {
                     filewrite.Write(NewText);
                 }
+            }
+        }
+        private void RandomButton_Click(object sender, RoutedEventArgs e)
+        {
+            NewTimeGen Generator = new NewTimeGen();
+
+            Generator.FreeTime();
+            List<NewTimeSlot> RandomActivities = Generator.ActvitiesToGenerate();
+
+            foreach (NewTimeSlot Activity in RandomActivities)
+            {
+                AddActivity(Activity);
             }
         }
 

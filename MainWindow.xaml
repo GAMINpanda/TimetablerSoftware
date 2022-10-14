@@ -202,5 +202,8 @@
         <Button x:Name = "RemoveButton" Grid.Column = "2" Grid.Row = "17"
                 Content = "Remove" Click="RemoveButton_Click"/>
 
+        <Button x:Name = "RandomButton" Grid.Column = "2" Grid.Row = "16"
+                Content = "Generate From File" Click="RandomButton_Click"/>
+
     </Grid>
 </Window>

@@ -34,8 +34,7 @@ namespace GenSlots
             string[] ActivitySplit;
             NewTimeSlot ActivityTemp;
             List<NewTimeSlot> ActivitiesAll = new List<NewTimeSlot>() { };
-            List<bool> daysblank = new List<bool>() { false, false, false, false, false, false, false };
-            List<bool> daystemp;
+            List<bool> daystemp = new List<bool>() { false, false, false, false, false, false, false };
             string time1;
             string time2;
             int random1;
@@ -56,7 +55,10 @@ namespace GenSlots
                 for (int i = 0; i < Convert.ToInt32(ActivitySplit[1]); i++){
                     random1 = random.Next(0, 7);
                     random2 = random.Next(0, temp[random1].Count);
-                    time1 = temp[random1][random2];
+
+                    //Debug.WriteLine("random1: {0}, random2: {1}", random1, random2);
+
+                    time1 = temp[random1][random2]; //Exception if ran twice?
                     time2 = Convert.ToString(Convert.ToInt32(time1) + 100); //Searching through free times and taking hour slots out at random
 
                     temp[random1].Remove(time1);
@@ -65,18 +67,42 @@ namespace GenSlots
                     {
                         time2 = "0" + time2;
                     }
+                    
+                    for (int j = 0; j < daystemp.Count; j++)
+                    {
+                        daystemp[j] = false;
+                        //Debug.WriteLine("daystemp[{0}] = {1}", j, daystemp[j]);
+                    }
 
-                    ActivityTemp = new NewTimeSlot(time1, time2, ActivitySplit[1]);
-                    daystemp = daysblank;
+
                     daystemp[random1] = true;
-                    ActivityTemp.SetDays(daystemp);
-                    ActivityTemp.WriteToCsv();
+
+                    /*
+                    for (int j = 0; j < daystemp.Count; j++)
+                    {
+                        Debug.WriteLine("daystemp[{0}] = {1}", j, daystemp[j]);
+                    }
+                    */
+
+                    ActivityTemp = new NewTimeSlot(time1, time2, ActivitySplit[0], daystemp);
+                    //ActivityTemp.WriteToCsv();
 
                     ActivitiesAll.Add(ActivityTemp);
                 }
             }
 
             freetimevals = temp;
+
+            /*
+            foreach (NewTimeSlot checkman in ActivitiesAll)
+            {
+                Console.WriteLine("Checkman.Days:");
+                for (int j = 0; j < (checkman.Days).Count; j++)
+                {
+                    Debug.WriteLine("checkman.Days[{0}] = {1}", j, (checkman.Days)[j]);
+                }
+            }
+            */
             return ActivitiesAll;
         }
 
