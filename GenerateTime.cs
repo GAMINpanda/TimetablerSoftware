@@ -8,7 +8,7 @@ using MainCode;
 
 namespace GenSlots
 {
-    public class NewTimeGen : NewTimeSlot //':' inherits
+    public class NewTimeGen
     {
         static List<string> GetCSVData(string filename)
         {
@@ -27,17 +27,60 @@ namespace GenSlots
             return CorrectCSVitems;
         }
 
-        static void GetActvitiesToGenerate()
+        public List<NewTimeSlot> ActvitiesToGenerate()
         {
-            //Activities and number of hours a week, with any time constraints, stored in a file for now.
-            //Activities will also have a type - eating, exercise, hobby or job (or none at all) -- helps decide on distribution
+            //Activities and number of hours a week, stored in a file for now
+            //Integer values
+            string[] ActivitySplit;
+            NewTimeSlot ActivityTemp;
+            List<NewTimeSlot> ActivitiesAll = new List<NewTimeSlot>() { };
+            List<bool> daysblank = new List<bool>() { false, false, false, false, false, false, false };
+            List<bool> daystemp;
+            string time1;
+            string time2;
+            int random1;
+            int random2;
+            Random random = new Random();
 
             List<List<string>> temp = freetimevals;
 
             List<string> Activities = GetCSVData("ActivitiesDistribute.csv");
+
+            foreach (string Activity in Activities){
+
+                ActivitySplit = Activity.Split(','); //Splitting activities up into name and hours/week
+
+                Debug.Write(Activity);
+                Debug.WriteLine(ActivitySplit[0]);
+
+                for (int i = 0; i < Convert.ToInt32(ActivitySplit[1]); i++){
+                    random1 = random.Next(0, 7);
+                    random2 = random.Next(0, temp[random1].Count);
+                    time1 = temp[random1][random2];
+                    time2 = Convert.ToString(Convert.ToInt32(time1) + 100); //Searching through free times and taking hour slots out at random
+
+                    temp[random1].Remove(time1);
+
+                    if (Convert.ToInt32(time2)< 1000)
+                    {
+                        time2 = "0" + time2;
+                    }
+
+                    ActivityTemp = new NewTimeSlot(time1, time2, ActivitySplit[1]);
+                    daystemp = daysblank;
+                    daystemp[random1] = true;
+                    ActivityTemp.SetDays(daystemp);
+                    ActivityTemp.WriteToCsv();
+
+                    ActivitiesAll.Add(ActivityTemp);
+                }
+            }
+
+            freetimevals = temp;
+            return ActivitiesAll;
         }
 
-        public static void FreeTime() //Reads save file to decide what times are free in the week - Creates new file with details (call once on save)
+        public void FreeTime() //Reads save file to decide what times are free in the week - Creates new file with details (call once on save)
         {
             string[] Day;
 
@@ -102,7 +145,7 @@ namespace GenSlots
             {
                 len = Timing[i].Count;
 
-                for (int j = 0; j < len; j = j + 2)
+                for (int j = 0; j + 1  < len; j = j + 2)
                 {
                     allvalues[i] = EachDay(Timing[i][j], Timing[i][j+1], allvalues[i]);
                 }
@@ -140,12 +183,7 @@ namespace GenSlots
             return Day;
         }
 
-        static void DecideActivityDistribution()
-        {
-
-        }
-
-        private static List<List<string>> freetimevals = NewTimeGen.ExtractFromSaveBoundaries();
+        private static List<List<string>> freetimevals = ExtractFromSaveBoundaries();
     }
 
 }

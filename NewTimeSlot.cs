@@ -40,11 +40,18 @@ namespace MainCode
             //Row on WPF grid is different to actuality
             //==> Rows start at 2 inclusive
 
-            int beginningtime = Convert.ToInt32(BeginningTime);
-            int beginningtimehr = Convert.ToInt32(beginningtime / 100); //time is 0000 digits so divide by 100 and round for integer
-            int beginningtimemin = (beginningtime - (beginningtimehr * 100)) / 60; //finds difference as a fraction of an hour
-            int rowbegin = beginningtimehr - 5;
-            return (rowbegin, beginningtimemin);
+            try
+            {
+                int beginningtime = Convert.ToInt32(BeginningTime);
+                int beginningtimehr = Convert.ToInt32(beginningtime / 100); //time is 0000 digits so divide by 100 and round for integer
+                int beginningtimemin = (beginningtime - (beginningtimehr * 100)) / 60; //finds difference as a fraction of an hour
+                int rowbegin = beginningtimehr - 5;
+                return (rowbegin, beginningtimemin);
+            }
+            catch
+            {
+                return (0, 0);
+            }
         }
 
         public List<int> GetColumnBegin()
@@ -66,13 +73,21 @@ namespace MainCode
         {
             //Row on WPF grid is different to actuality
             //==> Rows start at 2 inclusive
+            try
+            {
+                int endingtime = Convert.ToInt32(EndingTime);
+                int endingtimehr = Convert.ToInt32(endingtime / 100); //time is 0000 digits so divide by 100 and round for integer
+                int endingtimemin = (endingtime - (endingtimehr * 100)) / 60; //finds difference as a fraction of an hour
+                int rowend = endingtimehr - 5;
+                return (rowend, endingtimemin);
+            }
 
-            int endingtime = Convert.ToInt32(EndingTime);
-            int endingtimehr = Convert.ToInt32(endingtime / 100); //time is 0000 digits so divide by 100 and round for integer
-            int endingtimemin = (endingtime - (endingtimehr * 100)) / 60; //finds difference as a fraction of an hour
-            int rowend = endingtimehr - 5;
-            return (rowend, endingtimemin);
+            catch
+            {
+                return (0, 0);
+            }
         }
+
         public void WriteToCsv()
         { //just stores each new timeslot on a new line (easy as that)
 
@@ -108,8 +123,6 @@ namespace MainCode
                 file.Write(val);
             }
             file.Close();
-
-            NewTimeGen.FreeTime(); //Writing free slots to file
         }
 
         public string BeginningTime { get; }

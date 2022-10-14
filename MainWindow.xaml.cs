@@ -16,6 +16,7 @@ using System.Xml;
 using System.IO;
 using Path = System.IO.Path;
 using MainCode;
+using GenSlots;
 
 namespace TimetablerSoftware
 {
@@ -27,7 +28,16 @@ namespace TimetablerSoftware
         public MainWindow()
         {
             InitializeComponent();
+
+            NewTimeGen Generator = new NewTimeGen();
+
+            Generator.FreeTime();
+            List<NewTimeSlot> RandomActivities = Generator.ActvitiesToGenerate();
+
             List<NewTimeSlot> Activities = LoadFromCsv();
+
+            Activities.AddRange(RandomActivities);
+
             foreach (NewTimeSlot Activity in Activities)
             {
                 AddActivity(Activity);
