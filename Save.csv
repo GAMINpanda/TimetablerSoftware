@@ -6,3 +6,20 @@ KaiIsSpecial,0800,1000,True,True,False,True,False,False,True
 Chicken,1600,1700,True,False,False,False,False,False,False
 e,1600,1700,True,False,False,False,False,False,False
 e,1700,1800,True,False,False,False,False,False,False
+Running,2100,2200,False,False,False,True,False,False,False
+Running,1500,1600,False,False,False,True,False,False,False
+Running,0900,1000,False,False,True,False,False,False,False
+Running,1200,1300,False,False,False,False,False,True,False
+Sandwich,2000,2100,False,False,False,False,True,False,False
+Sandwich,1400,1500,True,False,False,False,False,False,False
+Sandwich,1800,1900,False,True,False,False,False,False,False
+Sandwich,1100,1200,False,False,True,False,False,False,False
+Sandwich,1700,1800,True,False,False,False,False,False,False
+Please type here...,Please type here...,Please type here...,False,False,False,False,False,False,False
+Running,2200,2300,False,False,False,False,True,False,False
+Running,1600,1700,False,False,False,True,False,False,False
+Running,0700,0800,False,False,True,False,False,False,False
+Running,1000,1100,False,False,False,False,True,False,False
+Sandwich,0800,0900,False,False,True,False,False,False,False
+Sandwich,1900,2000,False,False,False,False,False,False,True
+Sandwich,1300,1400,True,False,False,False,False,False,False

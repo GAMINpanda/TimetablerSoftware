@@ -27,7 +27,7 @@ namespace GenSlots
             return CorrectCSVitems;
         }
 
-        public List<NewTimeSlot> ActvitiesToGenerate()
+        public void ActvitiesToGenerate()
         {
             //Activities and number of hours a week, stored in a file for now
             //Integer values
@@ -71,39 +71,18 @@ namespace GenSlots
                     for (int j = 0; j < daystemp.Count; j++)
                     {
                         daystemp[j] = false;
-                        //Debug.WriteLine("daystemp[{0}] = {1}", j, daystemp[j]);
                     }
 
 
                     daystemp[random1] = true;
-
-                    /*
-                    for (int j = 0; j < daystemp.Count; j++)
-                    {
-                        Debug.WriteLine("daystemp[{0}] = {1}", j, daystemp[j]);
-                    }
-                    */
+                    
 
                     ActivityTemp = new NewTimeSlot(time1, time2, ActivitySplit[0], daystemp);
-                    //ActivityTemp.WriteToCsv();
-
-                    ActivitiesAll.Add(ActivityTemp);
+                    ActivityTemp.WriteToCsv();
                 }
             }
 
             freetimevals = temp;
-
-            /*
-            foreach (NewTimeSlot checkman in ActivitiesAll)
-            {
-                Console.WriteLine("Checkman.Days:");
-                for (int j = 0; j < (checkman.Days).Count; j++)
-                {
-                    Debug.WriteLine("checkman.Days[{0}] = {1}", j, (checkman.Days)[j]);
-                }
-            }
-            */
-            return ActivitiesAll;
         }
 
         public void FreeTime() //Reads save file to decide what times are free in the week - Creates new file with details (call once on save)

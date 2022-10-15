@@ -213,9 +213,11 @@ namespace TimetablerSoftware
             NewTimeGen Generator = new NewTimeGen();
 
             Generator.FreeTime();
-            List<NewTimeSlot> RandomActivities = Generator.ActvitiesToGenerate();
+            Generator.ActvitiesToGenerate();
 
-            foreach (NewTimeSlot Activity in RandomActivities)
+            List<NewTimeSlot> Activities = LoadFromCsv();
+
+            foreach (NewTimeSlot Activity in Activities)
             {
                 AddActivity(Activity);
             }
