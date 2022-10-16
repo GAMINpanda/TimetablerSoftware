@@ -43,7 +43,16 @@ namespace GenSlots
             Random random = new Random();
 
             List<List<string>> temp = freetimevals;
-
+            /*
+            foreach (List<string> List in temp)
+            {
+                foreach (string str in List)
+                {
+                    Debug.Write(str + ", ");
+                }
+                Debug.WriteLine("");
+            }
+            */
             List<string> Activities = GetCSVData("ActivitiesDistribute.csv");
 
             foreach (string Activity in Activities){
@@ -102,7 +111,7 @@ namespace GenSlots
 
             FreeTime();
 
-            freetimevals = ExtractFromSaveBoundaries();
+            freetimevals = temp;
         }
 
         public void FreeTime() //Reads save file to decide what times are free in the week - Creates new file with details (call once on save)
@@ -156,8 +165,15 @@ namespace GenSlots
 
         public static List<List<string>> ExtractFromSaveBoundaries() //converts into list with all free times
         {
-            List<string> defaultvar = new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"};
-            List<List<string>> allvalues = new List<List<string>>() { defaultvar, defaultvar, defaultvar, defaultvar, defaultvar, defaultvar, defaultvar }; //blank slate of times
+            List<List<string>> allvalues = new List<List<string>>() {
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200" },
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"},
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"},
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"},
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"},
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"},
+                new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"}}; //blank slate of times
+
             List<string> CSVitems = GetCSVData("SaveBoundaries.csv");
             int len;
             List<List<string>> Timing = new List<List<string>>();
@@ -203,9 +219,10 @@ namespace GenSlots
                 {
                     curtimestring = Convert.ToString(curtime);
                 }
-
+                //Debug.WriteLine(curtimestring);
                 Day.Remove(curtimestring);
             }
+            //Debug.WriteLine("------------");
 
             return Day;
         }
