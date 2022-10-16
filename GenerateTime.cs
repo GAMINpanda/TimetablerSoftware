@@ -36,6 +36,7 @@ namespace GenSlots
             List<NewTimeSlot> ActivitiesAll = new List<NewTimeSlot>() { };
             List<bool> daystemp = new List<bool>() { false, false, false, false, false, false, false };
             string time1;
+            int count;
             string time2;
             int random1;
             int random2;
@@ -46,19 +47,36 @@ namespace GenSlots
             List<string> Activities = GetCSVData("ActivitiesDistribute.csv");
 
             foreach (string Activity in Activities){
-
+                //Debug.WriteLine(Activity);  //Activities seem to be working as normal?
                 ActivitySplit = Activity.Split(','); //Splitting activities up into name and hours/week
 
-                Debug.Write(Activity);
-                Debug.WriteLine(ActivitySplit[0]);
+                //Debug.Write(Activity);
+                //Debug.WriteLine(ActivitySplit[0]);
 
                 for (int i = 0; i < Convert.ToInt32(ActivitySplit[1]); i++){
-                    random1 = random.Next(0, 7);
-                    random2 = random.Next(0, temp[random1].Count);
+                    count = 0;
+                    do
+                    {
+                        random1 = random.Next(0, temp.Count);
+                        random2 = random.Next(0, temp[random1].Count);
+
+                        if (temp.Count == 0 || count >= 100)
+                        {
+                            break;
+                        }
+                        count++; //By 100 counts all possible possiblilties should've been checked
+                        //Debug.WriteLine(temp.Count + " & " + temp[random1].Count);
+                        //Debug.WriteLine("random1: {0}, random2: {1}",random1,random2);  //On only the second iteration there are no free slots?
+                    } while (temp[random1].Count == 0);
+
+                    if (temp.Count == 0 || count >= 100)
+                    {
+                        break;
+                    }
 
                     //Debug.WriteLine("random1: {0}, random2: {1}", random1, random2);
 
-                    time1 = temp[random1][random2]; //Exception if ran twice?
+                    time1 = temp[random1][random2]; //Exception if ran twice? -- no values left?
                     time2 = Convert.ToString(Convert.ToInt32(time1) + 100); //Searching through free times and taking hour slots out at random
 
                     temp[random1].Remove(time1);
@@ -82,11 +100,14 @@ namespace GenSlots
                 }
             }
 
-            freetimevals = temp;
+            FreeTime();
+
+            freetimevals = ExtractFromSaveBoundaries();
         }
 
         public void FreeTime() //Reads save file to decide what times are free in the week - Creates new file with details (call once on save)
         {
+            //Currently not functioning quite as intended
             string[] Day;
 
             List<string> CorrectCSVitems = GetCSVData("Save.csv");
@@ -136,7 +157,7 @@ namespace GenSlots
         public static List<List<string>> ExtractFromSaveBoundaries() //converts into list with all free times
         {
             List<string> defaultvar = new List<string>() { "0700", "0800", "0900", "1000", "1100", "1200", "1300", "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200"};
-            List<List<string>> allvalues = new List<List<string>>() { defaultvar, defaultvar, defaultvar, defaultvar, defaultvar, defaultvar, defaultvar };
+            List<List<string>> allvalues = new List<List<string>>() { defaultvar, defaultvar, defaultvar, defaultvar, defaultvar, defaultvar, defaultvar }; //blank slate of times
             List<string> CSVitems = GetCSVData("SaveBoundaries.csv");
             int len;
             List<List<string>> Timing = new List<List<string>>();
@@ -148,10 +169,11 @@ namespace GenSlots
 
             for(int i = 0; i < 7; i++)
             {
-                len = Timing[i].Count;
+                len = Timing[i].Count; //counting times for each day (day i)
 
-                for (int j = 0; j + 1  < len; j = j + 2)
+                for (int j = 0; j + 1  < len; j = j + 2) //iterating by 2 since each activity has 2 times (start and end)
                 {
+                    //Debug.WriteLine("Timing[{0}][{1}] = {2}, Timing[{0}][{3}] = {4}",i,j,Timing[i][j],j+1,Timing[i][j+1]);
                     allvalues[i] = EachDay(Timing[i][j], Timing[i][j+1], allvalues[i]);
                 }
             }
@@ -166,7 +188,7 @@ namespace GenSlots
             int firsttime = Convert.ToInt32(time1);
             int secondtime = Convert.ToInt32(time2);
 
-            int count = firsttime - secondtime;
+            int count = secondtime - firsttime; //this little bugger (got wrong way round and so generationg wasn't working for ages)
             count = count / 100;
 
             for (int i = 0; i < count; i++)
