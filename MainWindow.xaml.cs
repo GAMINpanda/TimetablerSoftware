@@ -222,6 +222,39 @@ namespace TimetablerSoftware
                 AddActivity(Activity);
             }
         }
+        private void ReloadButton_Click(object sender, RoutedEventArgs e)
+        {
+            DependencyObject window = MainWindow.GetWindow(this);
+            foreach (TextBlock tb in FindVisualChildren<TextBlock>(window))
+            {
+                if (Grid.GetColumn(tb) > 3 && Grid.GetRow(tb) > 1)
+                {
+
+                }
+            }
+        }
+
+        //Copied from https://www.codeproject.com/questions/676213/how-to-get-all-controls-in-wpf-window user: Alexanbu
+        public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in FindVisualChildren<T>(child))
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
+        }
+        // -----
 
         public void AddActivity(NewTimeSlot Activity) //Adds an activity to MainWindow.xaml
         {

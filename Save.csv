@@ -1,4 +1,20 @@
 Example1,0700,1000,False,False,False,True,False,False,True
-Example2,2000,2100,True,False,False,False,False,False,True
+Example2,2000,2100,False,False,False,False,False,False,True
 Example2,1900,2000,False,True,False,False,False,True,False
 Example3,1200,1400,True,True,True,True,True,True,True
+Running,1900,2000,False,False,False,True,False,False,False
+Running,0700,0800,False,True,False,False,False,False,False
+Running,1000,1100,False,False,False,True,False,False,False
+FoodBreak,1600,1700,False,True,False,False,False,False,False
+FoodBreak,1400,1500,False,False,False,False,False,True,False
+FoodBreak,1500,1600,False,False,False,False,False,False,True
+FoodBreak,2100,2200,False,True,False,False,False,False,False
+FoodBreak,1700,1800,False,True,False,False,False,False,False
+FoodBreak,1000,1100,True,False,False,False,False,False,False
+FoodBreak,0700,0800,True,False,False,False,False,False,False
+Sandwich,0700,0800,False,False,True,False,False,False,False
+Sandwich,2200,2300,False,False,True,False,False,False,False
+Sandwich,1000,1100,False,False,False,False,False,False,True
+OhHelloThere,0800,0900,False,False,False,False,False,True,False
+Please type here...,Please type here...,Please type here...,False,False,False,False,False,False,False
+Please type here...,Please type here...,Please type here...,False,False,False,False,False,False,False
